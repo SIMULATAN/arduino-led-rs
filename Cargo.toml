@@ -1,0 +1,37 @@
+[package]
+name = "arduino-led-rs"
+version = "0.1.0"
+authors = ["SIMULATAN <simulatan2319@gmail.com>"]
+edition = "2021"
+license = "MIT"
+
+[[bin]]
+name = "arduino-led-rs"
+test = false
+bench = false
+
+[dependencies]
+panic-halt = "0.2.0"
+smart-leds = "0.3.0"
+ws2812-spi = "0.4.0"
+ws2812-blocking-spi = "0.2.0"
+#ws2812-timer-delay = "0.3.0"
+#embedded-hal = "0.2.7"
+
+[dependencies.arduino-hal]
+git = "https://github.com/Rahix/avr-hal"
+rev = "4c9c44c"
+features = ["arduino-nano"]
+
+# Configure the build for minimal size
+[profile.dev]
+panic = "abort"
+lto = true
+opt-level = 3
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+debug = true
+lto = "fat"
+opt-level = 3
